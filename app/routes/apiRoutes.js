@@ -18,28 +18,27 @@ module.exports = function (app) {
         }
 
 
-        var bestFriendIndex = 0;
-        var minimumDifference = 40;
+        var bestFriend = 0;
+        var match = 50;
 
 
         for (var i = 0; i < friends.length; i++) {
-            var totalDifference = 0;
+            var allDifference = 0;
             for (var j = 0; j < friends[i].scores.length; j++) {
                 var difference = Math.abs(user.scores[j] - friends[i].scores[j]);
-                totalDifference += difference;
+                allDifference += difference;
             }
 
 
-            if (totalDifference < minimumDifference) {
-                bestFriendIndex = i;
-                minimumDifference = totalDifference;
+            if (allDifference < match) {
+                bestFriend = i;
+                match = allDifference;
             }
         }
 
+     friends.push(user);
 
-        friends.push(user);
 
-
-        res.json(friends[bestFriendIndex]);
+     res.json(friends[bestFriend]);
     });
 };
